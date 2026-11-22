@@ -1,0 +1,5 @@
+.DS_store
+
+my_env/
+venv/
+.venv
