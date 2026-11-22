@@ -62,6 +62,7 @@ print('--------------------- unpacking -------------------')
 data = item_list.items()
 print(store.items())
 print(type(data))
+print(data)
 for var in data:
   detail, value = var
   print(f"detail: {detail}, value: {value}")

@@ -1,0 +1,21 @@
+metrics_node_a = { 'node_data' : {'node_id': 'vm-101', 'cpu_pct': 92, 'mem_pct': 75}, 'config_patch' : {'cluster': 'prod-alpha', 'tags': ['frontend']}}
+
+metrics_node_b = { 'node_data': {'node_id': 'vm-102', 'cpu_pct': 10, 'mem_pct': 15, 'region': 'eu-west-1'}, 'config_patch' : {'cluster': 'staging'}}
+
+def assess_node(node_metrics):
+  node_data = (node_metrics.get('node_data'))
+  config_patch = (node_metrics.get('config_patch'))
+  node_data.setdefault('region','us-east-1')
+  node_data.setdefault('restart_count',0)
+  config_patch['last_audited'] = '2025-01-01'
+  if node_data.get('cpu_pct', 0) > 85 or node_data.get('mem_pct', 0) > 90:
+    node_metrics['decision'] = 'SCALE_UP'
+  elif node_data.get('cpu_pct', 0) < 15 or node_data.get('mem_pct', 0) < 20:
+    node_metrics['decision'] = 'SCALE_DOWN'
+  else:
+    node_metrics['decision'] = 'HEALTHY'
+
+assess_node(metrics_node_a)
+assess_node(metrics_node_b)
+print(metrics_node_a)
+print(metrics_node_b)
